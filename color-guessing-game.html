@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        let COLORS_ARRAY = ["red", "blue", "yellow", "green", "orange", "purple", "white", "teal", "grey",];
+        let displayText = COLORS_ARRAY.join(", ");
+        let correct = false;
+        let count = 0;
+        function runGame() {
+            //The other way that I did this problem
+            //const answer = COLORS_ARRAY[Math.floor(Math.random() * COLORS_ARRAY.length)];
+            const targetIndex = Math.floor(Math.random() * COLORS_ARRAY.length);
+            console.log(COLORS_ARRAY[targetIndex]);
+            do {
+                count++;
+                console.log(count);
+                let promptGuess = prompt(`Given this collection of colors: ${displayText}. What color do you think it is?`);
+                correct = checkGuess(promptGuess, targetIndex);                
+            } while (!correct)
+            count = 0;
+        }
+        function checkGuess(guess, ans) {
+            if (guess === COLORS_ARRAY[ans]) {
+                if(count > 1){
+                alert(`Congratulations! it took you ${count} tries to get it right.`);
+                }else {
+                alert(`Congratulations! it only took you ${count} attempt to get it right.`);
+                }            
+                document.body.style.background = guess;
+                return true;
+            } else if (COLORS_ARRAY.includes(guess)) {
+                if(COLORS_ARRAY[ans]<guess){
+                    alert("You have guessed wrong please try again. You were over in terms of alphabetically.");
+                }else{
+                    alert("You have guessed wrong please try again. You were under in terms of alphabetically.");
+                }
+                return false;
+            } else if (guess === null) {//To cancel the game otherwise I couldn't reset the webpage
+                return true;
+            }
+            else {
+                alert("You have failed to input a color a part of the collection that was asked.");
+                return false;
+            }
+        }
+    </script>
+    <h1>Color Guessing Game</h1>
+    <button type="button" onclick="runGame()">Start Game</button>
+</body>
+
+</html>
