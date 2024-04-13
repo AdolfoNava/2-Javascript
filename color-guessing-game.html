@@ -22,12 +22,12 @@
                 count++;
                 console.log(count);
                 let promptGuess = prompt(`Given this collection of colors: ${displayText}. What color do you think it is?`);
-                correct = checkGuess(promptGuess, targetIndex);                
+                correct = checkGuess(promptGuess, COLORS_ARRAY[targetIndex]);                
             } while (!correct)
             count = 0;
         }
         function checkGuess(guess, ans) {
-            if (guess === COLORS_ARRAY[ans]) {
+            if (guess === ans) {
                 if(count > 1){
                 alert(`Congratulations! it took you ${count} tries to get it right.`);
                 }else {
@@ -36,7 +36,7 @@
                 document.body.style.background = guess;
                 return true;
             } else if (COLORS_ARRAY.includes(guess)) {
-                if(COLORS_ARRAY[ans]<guess){
+                if(ans<guess){
                     alert("You have guessed wrong please try again. You were over in terms of alphabetically.");
                 }else{
                     alert("You have guessed wrong please try again. You were under in terms of alphabetically.");
