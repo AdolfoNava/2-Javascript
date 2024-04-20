@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shopping List App</title>
+    <style>
+        ul {
+            list-style-type: "\2610 ";
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <h1>My Shopping List</h1>
+    <form id="myForm">
+        <label for="item">Add an item:</label>
+        <input id="item" type="text" name="item">
+        <button onclick="getItem()">Add</button>
+    </form>
+    <ul id="shoppingList">
+        <!-- list items will go into this ul via DOM manipulation -->
+    </ul>
+    <script>
+        // add your JavaScript code here
+        //event.preventDefault();
+        let shoppingItems = [];
+        const shoppingList = document.getElementById("shoppingList");
+        function makeList(){
+            for (const i of shoppingItems) {
+                const li = document.createElement('li');
+                li.addEventListener('click',removeItem);
+                li.innerText = i;
+                shoppingList.appendChild(li);
+            }
+        }
+        function getItem(){
+            event.preventDefault();
+            const item = document.getElementById('item').value;
+
+            shoppingItems.push(item);
+            console.log(shoppingItems);
+            document.getElementById("myForm").reset();
+            removeList();
+            makeList();
+        }
+        function removeItem(){
+            const item = event.currentTarget.textContent;
+            const itemLoc = shoppingItems.indexOf(item);
+            shoppingItems.splice(itemLoc,1);
+            removeList();
+            makeList();
+        }
+        function removeList(){
+            while(shoppingList.firstChild){
+                shoppingList.removeChild(shoppingList.firstChild);
+            }
+        }
+    </script>
+</body>
+</html>
